@@ -1,25 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub of Olimpus - V27</title>
+    <title>Hub of Olimpus</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
-
-        :root {
-            --primary: #ff9000;
-            --bg: #000;
-            --surface: #0a0a0a;
-            --border: #1a1a1a;
-            --text-main: #ffffff;
-            --text-muted: #666;
-        }
-
+        :root { --primary: #ff9000; --bg: #000; --surface: #0a0a0a; --border: #1a1a1a; --text-main: #ffffff; --text-muted: #666; }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
-
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
         header {
@@ -29,54 +19,36 @@
         }
         .logo { font-size: 28px; font-weight: 900; letter-spacing: -2px; text-decoration: none; color: #fff; }
         .logo span { color: var(--primary); }
-        
         .search-box { flex: 1; max-width: 500px; margin: 0 40px; }
         .search-box input { 
             width: 100%; background: #0a0a0a; border: 1px solid var(--border); 
             padding: 12px 20px; border-radius: 4px; color: #fff; font-family: inherit;
-            transition: 0.3s;
         }
 
         .sub-header { 
             margin-top: 70px; background: #050505; border-bottom: 1px solid var(--border); 
             padding: 15px 4%; display: flex; gap: 25px; overflow-x: auto; scrollbar-width: none; 
         }
-        .nav-item { 
-            flex-shrink: 0; cursor: pointer; color: var(--text-muted); 
-            font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;
-            transition: 0.2s;
-        }
+        .nav-item { flex-shrink: 0; cursor: pointer; color: var(--text-muted); font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .nav-item.active { color: var(--primary); }
-
-        /* ESPAÇO PARA ANÚNCIO TOPO */
-        .ad-top-container { margin-top: 20px; text-align: center; min-height: 90px; }
 
         main { padding: 20px 4%; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        
-        .v-card { position: relative; cursor: pointer; transition: 0.3s; }
+        .v-card { cursor: pointer; transition: 0.3s; }
         .v-card:hover { transform: translateY(-5px); }
         .v-thumb { aspect-ratio: 16/9; background: var(--surface); border-radius: 4px; overflow: hidden; position: relative; border: 1px solid var(--border); }
         .v-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .v-duration { position: absolute; bottom: 8px; right: 8px; background: var(--primary); color: #000; font-weight: 900; font-size: 10px; padding: 2px 6px; border-radius: 2px; }
-        .v-title { font-size: 13px; font-weight: 700; padding: 10px 5px; text-transform: uppercase; color: #eee; }
+        .v-title { font-size: 12px; font-weight: 700; padding: 10px 5px; text-transform: uppercase; color: #eee; }
 
         #loader { text-align: center; padding: 30px; color: var(--primary); font-weight: 900; display: none; }
 
-        /* PLAYER */
         #theater { display: none; position: fixed; inset: 0; background: #000; z-index: 9999; grid-template-columns: 1fr 380px; }
-        .player-main { display: flex; flex-direction: column; background: #000; }
+        .player-main { display: flex; flex-direction: column; }
         .player-header { height: 60px; background: #050505; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid var(--border); }
         .btn-back { background: var(--primary); color: #000; border: none; padding: 8px 20px; font-weight: 900; border-radius: 2px; cursor: pointer; }
-        .video-viewport { flex: 1; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
-        .player-info-bar { padding: 25px; background: #050505; border-top: 1px solid var(--border); }
-
         .side-panel { background: #080808; border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; }
-        .side-card { display: flex; gap: 12px; margin-bottom: 15px; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .side-thumb { width: 120px; aspect-ratio: 16/9; background: #000; flex-shrink: 0; }
-        .side-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
         @media (max-width: 1100px) { #theater { grid-template-columns: 1fr; } .side-panel { display: none; } }
     </style>
 </head>
@@ -89,7 +61,7 @@
     </div>
 </header>
 
-<div class="sub-header" id="nav-cats">
+<div class="sub-header">
     <div class="nav-item active" onclick="setChan('', this)" data-i18n="cat_global">GLOBAL</div>
     <div class="nav-item" onclick="setChan('Trans', this)">TRANS</div>
     <div class="nav-item" onclick="setChan('Femboys', this)">FEMBOY</div>
@@ -97,166 +69,79 @@
 </div>
 
 <main>
-    <div class="ad-top-container">
-        </div>
-
     <div class="grid" id="main-grid"></div>
-    <div id="loader" data-i18n="loading">CARREGANDO...</div>
+    <div id="loader" data-i18n="loading">...</div>
 </main>
 
 <div id="theater">
     <div class="player-main">
         <div class="player-header">
-            <div id="v-header-title" style="font-size: 11px; font-weight: 900; opacity: 0.6;" data-i18n="streaming_now">STREAMING...</div>
+            <div data-i18n="streaming_now" style="font-size: 10px; font-weight: 900;">STREAMING...</div>
             <button class="btn-back" onclick="closePlayer()" data-i18n="btn_back">VOLTAR</button>
         </div>
-        <div class="video-viewport" id="p-container"></div>
-        <div class="player-info-bar">
-            <div style="color: var(--primary); font-size: 11px; font-weight: 900; margin-bottom: 10px;">SECURE CONNECTION • 1080P</div>
-            <h2 id="v-main-title" style="text-transform: uppercase;"></h2>
-            <div style="margin-top:20px; text-align:center;">
-                </div>
-        </div>
+        <div id="p-container" style="flex:1;"></div>
+        <div style="padding: 20px; background: #050505;"><h2 id="v-title-display"></h2></div>
     </div>
-    <div class="side-panel">
-        <div style="color:var(--primary); font-weight:900; margin-bottom:20px;" data-i18n="related">RELACIONADOS</div>
-        <div id="rel-grid"></div>
-    </div>
+    <div class="side-panel" id="rel-grid"></div>
 </div>
 
 <script>
-    // 1. SISTEMA DE TRADUÇÃO
     const translations = {
-        'pt': {
-            search_placeholder: "DIGITE SUA BUSCA...",
-            cat_global: "GLOBAL",
-            cat_comp: "COMPILAÇÕES",
-            loading: "CARREGANDO MAIS CONTEÚDO...",
-            streaming_now: "STREAMING EM CURSO",
-            btn_back: "VOLTAR PARA LISTA",
-            related: "RELACIONADOS"
-        },
-        'en': {
-            search_placeholder: "SEARCH FOR VIDEOS...",
-            cat_global: "GLOBAL",
-            cat_comp: "COMPILATIONS",
-            loading: "LOADING MORE CONTENT...",
-            streaming_now: "STREAMING IN PROGRESS",
-            btn_back: "BACK TO LIST",
-            related: "RELATED VIDEOS"
-        },
-        'es': {
-            search_placeholder: "BUSCAR VIDEOS...",
-            cat_global: "GLOBAL",
-            cat_comp: "COMPILACIONES",
-            loading: "CARGANDO MÁS CONTENIDO...",
-            streaming_now: "STREAMING EN CURSO",
-            btn_back: "VOLVER A LA LISTA",
-            related: "RELACIONADOS"
-        }
+        'pt': { search_placeholder: "BUSCAR...", cat_global: "GLOBAL", cat_comp: "COMPILAÇÕES", loading: "CARREGANDO...", streaming_now: "AO VIVO", btn_back: "VOLTAR", related: "RELACIONADOS" },
+        'en': { search_placeholder: "SEARCH...", cat_global: "GLOBAL", cat_comp: "COMPILATIONS", loading: "LOADING...", streaming_now: "STREAMING", btn_back: "BACK", related: "RELATED" },
+        'ru': { search_placeholder: "ПОИСК...", cat_global: "ГЛОБАЛЬНЫЙ", cat_comp: "ПОДБОРКИ", loading: "ЗАГРУЗКА...", streaming_now: "ТРАНСЛЯЦИЯ", btn_back: "НАЗАД", related: "ПОХОЖИЕ" }
     };
 
-    function applyTranslation() {
-        const userLang = navigator.language.split('-')[0]; // Pega 'pt', 'en', etc.
-        const lang = translations[userLang] ? userLang : 'en'; // Default para inglês
-        
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (el.tagName === 'INPUT') {
-                el.placeholder = translations[lang][key];
-            } else {
-                el.innerText = translations[lang][key];
-            }
-        });
-    }
-
-    // 2. LÓGICA DO SITE (SCROLL INFINITO + API)
     let currentChan = '', allVideos = [], currentPage = 1, isLoading = false;
 
-    function setChan(chan, btn) {
-        currentChan = chan;
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        btn.classList.add('active');
-        runSearch();
-    }
-
-    function runSearch() {
-        document.getElementById('main-grid').innerHTML = "";
-        currentPage = 1;
-        allVideos = [];
-        executeFetch(currentPage);
+    function applyTranslation() {
+        const userLang = navigator.language.split('-')[0];
+        const lang = translations[userLang] ? userLang : 'en';
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (el.tagName === 'INPUT') el.placeholder = translations[lang][key];
+            else el.innerText = translations[lang][key];
+        });
     }
 
     async function executeFetch(page) {
         if (isLoading) return;
         isLoading = true;
         document.getElementById('loader').style.display = 'block';
-
         const query = document.getElementById('q').value || "popular";
-        const tags = currentChan || query;
-        const url = `https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(tags)}&per_page=40&page=${page}&thumbsize=big&format=json`;
-
+        const url = `https://www.eporner.com/api/v2/video/search/?query=${encodeURIComponent(currentChan || query)}&per_page=40&page=${page}&thumbsize=big&format=json`;
+        
         try {
             const res = await fetch(url);
             const data = await res.json();
             if (data.videos) {
                 allVideos = [...allVideos, ...data.videos];
-                renderGrid(data.videos, page === 1);
+                data.videos.forEach(v => {
+                    const div = document.createElement('div');
+                    div.className = 'v-card';
+                    div.onclick = () => openPlayer(v);
+                    div.innerHTML = `<div class="v-thumb"><div class="v-duration">${v.length_min}M</div><img src="${v.default_thumb.src}"></div><div class="v-title">${v.title}</div>`;
+                    document.getElementById('main-grid').appendChild(div);
+                });
             }
-        } catch (e) { console.error("API Error"); }
-        finally {
-            isLoading = false;
-            document.getElementById('loader').style.display = 'none';
-        }
+        } catch (e) { console.error(e); }
+        finally { isLoading = false; document.getElementById('loader').style.display = 'none'; }
     }
 
-    function renderGrid(videos, clear) {
-        const grid = document.getElementById('main-grid');
-        videos.forEach(v => {
-            const div = document.createElement('div');
-            div.className = 'v-card';
-            div.onclick = () => openPlayer(v);
-            div.innerHTML = `
-                <div class="v-thumb">
-                    <div class="v-duration">${v.length_min}M</div>
-                    <img src="${v.default_thumb.src}" loading="lazy">
-                </div>
-                <div class="v-title">${v.title}</div>`;
-            grid.appendChild(div);
-        });
-    }
+    function runSearch() { document.getElementById('main-grid').innerHTML = ""; currentPage = 1; executeFetch(1); }
+    function setChan(c, b) { currentChan = c; document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); b.classList.add('active'); runSearch(); }
+    
+    window.onscroll = () => { if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) { if (!isLoading) { currentPage++; executeFetch(currentPage); } } };
 
-    window.onscroll = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
-            if (!isLoading) { currentPage++; executeFetch(currentPage); }
-        }
-    };
-
-    function openPlayer(video) {
+    function openPlayer(v) {
         document.getElementById('theater').style.display = 'grid';
         document.body.style.overflow = 'hidden';
-        document.getElementById('v-main-title').innerText = video.title;
-        const embedUrl = video.embed + (video.embed.includes('?') ? '&' : '?') + "hd=1&bgcolor=000000";
-        document.getElementById('p-container').innerHTML = `<iframe src="${embedUrl}" allowfullscreen allow="autoplay"></iframe>`;
-        
-        const relGrid = document.getElementById('rel-grid');
-        relGrid.innerHTML = "";
-        allVideos.slice(0, 10).forEach(v => {
-            const d = document.createElement('div');
-            d.className = 'side-card';
-            d.onclick = () => openPlayer(v);
-            d.innerHTML = `<div class="side-thumb"><img src="${v.default_thumb.src}"></div><div>${v.title.substring(0,40)}...</div>`;
-            relGrid.appendChild(d);
-        });
+        document.getElementById('v-title-display').innerText = v.title;
+        document.getElementById('p-container').innerHTML = `<iframe src="${v.embed}?hd=1" allowfullscreen></iframe>`;
     }
 
-    function closePlayer() {
-        document.getElementById('theater').style.display = 'none';
-        document.body.style.overflow = 'auto';
-        document.getElementById('p-container').innerHTML = "";
-    }
+    function closePlayer() { document.getElementById('theater').style.display = 'none'; document.body.style.overflow = 'auto'; document.getElementById('p-container').innerHTML = ""; }
 
-    // Inicialização
     applyTranslation();
     executeFetch(1);
 </script>
