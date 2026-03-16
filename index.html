@@ -160,22 +160,43 @@
     function setChan(c, b) { currentChan = c; document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); b.classList.add('active'); runSearch(); }
     
     function openPlayer(v) {
+        // 1. Exibe o player
         document.getElementById('theater').style.display = 'grid';
         document.body.style.overflow = 'hidden';
-        document.getElementById('v-title-display').innerText = v.title;
-        document.getElementById('p-container').innerHTML = `<iframe src="${v.embed}?hd=1&bgcolor=000000" allowfullscreen allow="autoplay"></iframe>`;
         
-        // Renderiza relacionados na lateral
+        // 2. Ajusta o título (Fonte menor)
+        document.getElementById('v-title-display').innerText = v.title;
+        document.getElementById('v-title-display').style.fontSize = "14px";
+        
+        // 3. Carrega o vídeo
+        const embedUrl = v.embed.includes('?') ? `${v.embed}&hd=1` : `${v.embed}?hd=1`;
+        document.getElementById('p-container').innerHTML = `<iframe src="${embedUrl}" allowfullscreen allow="autoplay"></iframe>`;
+        
+        // 4. GERA OS RELACIONADOS NA LATERAL
         const relGrid = document.getElementById('rel-grid');
-        relGrid.innerHTML = "";
-        const shuffled = [...allVideos].sort(() => 0.5 - Math.random()).slice(0, 15);
-        shuffled.forEach(rv => {
-            const d = document.createElement('div');
-            d.className = 'side-item';
-            d.onclick = () => openPlayer(rv);
-            d.innerHTML = `<div class="side-thumb"><img src="${rv.default_thumb.src}"></div><div class="side-title">${rv.title.substring(0,50)}</div>`;
-            relGrid.appendChild(d);
-        });
+        relGrid.innerHTML = ""; // Limpa antes de carregar
+        
+        // Pega os vídeos que já foram carregados no site e escolhe alguns aleatórios
+        if (allVideos.length > 0) {
+            // Embaralha e pega 15 vídeos
+            const relatedData = [...allVideos].sort(() => 0.5 - Math.random()).slice(0, 15);
+            
+            relatedData.forEach(rv => {
+                const item = document.createElement('div');
+                item.className = 'side-item';
+                item.onclick = () => {
+                    // Função para trocar o vídeo sem fechar o player
+                    openPlayer(rv);
+                };
+                item.innerHTML = `
+                    <div class="side-thumb">
+                        <img src="${rv.default_thumb.src}" alt="thumb">
+                    </div>
+                    <div class="side-title">${rv.title.substring(0, 45)}...</div>
+                `;
+                relGrid.appendChild(item);
+            });
+        }
     }
 
     function closePlayer() { document.getElementById('theater').style.display = 'none'; document.body.style.overflow = 'auto'; document.getElementById('p-container').innerHTML = ""; }
